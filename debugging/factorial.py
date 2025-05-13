@@ -5,21 +5,17 @@ def factorial(n):
     result = 1
     while n > 1:
         result *= n
-        n -= 1  # Fix: decrement n
+        n -= 1  # Decrement to avoid infinite loop
     return result
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: {} <number>".format(sys.argv[0]))
+    try:
+        num = int(sys.argv[1])
+        if num < 0:
+            raise ValueError
+        print(factorial(num))
+    except (IndexError, ValueError):
         sys.exit(1)
 
-    try:
-        number = int(sys.argv[1])
-        if number < 0:
-            print("Factorial is not defined for negative numbers.")
-            sys.exit(1)
-        f = factorial(number)
-        print(f)
-    except ValueError:
-        print("Please provide a valid integer.")
-        sys.exit(1)
+    f = factorial(num)
+    print(f)
